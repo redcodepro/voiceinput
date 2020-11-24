@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="d3drender.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="jansson\memory.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\pack_unpack.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\strbuffer.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\strconv.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\utf.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\value.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\version.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\dump.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\error.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\hashtable.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\hashtable_seed.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="jansson\load.c">
+      <Filter>API\jansson</Filter>
+    </ClCompile>
+    <ClCompile Include="keyhook.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="render.cpp">
+      <Filter>Render</Filter>
+    </ClCompile>
+    <ClCompile Include="INET.cpp">
+      <Filter>API</Filter>
+    </ClCompile>
+    <ClCompile Include="samp\CChat.cpp">
+      <Filter>samp</Filter>
+    </ClCompile>
+    <ClCompile Include="samp\CDialog.cpp">
+      <Filter>samp</Filter>
+    </ClCompile>
+    <ClCompile Include="samp\CInput.cpp">
+      <Filter>samp</Filter>
+    </ClCompile>
+    <ClCompile Include="samp\common.cpp">
+      <Filter>samp</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="hook">
+      <UniqueIdentifier>{34f8d200-bc83-43f7-aaca-9eeb45649e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{0d7c937f-6d71-4ef2-bc34-c20188d58d13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Render\textures">
+      <UniqueIdentifier>{4d02538b-5b88-4e5a-af23-57b0191b083e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API">
+      <UniqueIdentifier>{4ef9c1d4-479a-4417-b4ac-c07d3d1367e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="API\jansson">
+      <UniqueIdentifier>{80a77845-12c7-4ba5-af3a-0d7ad1bb2884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="samp">
+      <UniqueIdentifier>{90f3a719-8d1b-422e-8c90-592dfe0cfa1d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="d3drender.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h" />
+    <ClInclude Include="bass.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson\strbuffer.h">
+      <Filter>API\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson\utf.h">
+      <Filter>API\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson\hashtable.h">
+      <Filter>API\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson\jansson.h">
+      <Filter>API\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson\jansson_config.h">
+      <Filter>API\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson\jansson_private.h">
+      <Filter>API\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="jansson\lookup3.h">
+      <Filter>API\jansson</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="keyhook.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="render.h">
+      <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="INET.h">
+      <Filter>API</Filter>
+    </ClInclude>
+    <ClInclude Include="STTFile.hpp" />
+    <ClInclude Include="samp\CChat.h">
+      <Filter>samp</Filter>
+    </ClInclude>
+    <ClInclude Include="samp\CDialog.h">
+      <Filter>samp</Filter>
+    </ClInclude>
+    <ClInclude Include="samp\CInput.h">
+      <Filter>samp</Filter>
+    </ClInclude>
+    <ClInclude Include="samp\common.h">
+      <Filter>samp</Filter>
+    </ClInclude>
+    <ClInclude Include="hook\MinHook.h">
+      <Filter>hook</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="bass.lib">
+      <Filter>API</Filter>
+    </Library>
+    <Library Include="hook\libMinHook.x86.lib">
+      <Filter>hook</Filter>
+    </Library>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="asi.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\micro.png">
+      <Filter>Render\textures</Filter>
+    </Image>
+    <Image Include="res\circle.png">
+      <Filter>Render\textures</Filter>
+    </Image>
+    <Image Include="res\background.png" />
+  </ItemGroup>
+</Project>
