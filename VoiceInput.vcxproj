@@ -110,7 +110,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -171,10 +171,60 @@
     <ClCompile Include="jansson\version.c" />
     <ClCompile Include="keyhook.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="samp\AimStuff.cpp" />
+    <ClCompile Include="samp\CActor.cpp" />
+    <ClCompile Include="samp\CActorPool.cpp" />
+    <ClCompile Include="samp\CAudio.cpp" />
+    <ClCompile Include="samp\CAudioStream.cpp" />
+    <ClCompile Include="samp\CCamera.cpp" />
     <ClCompile Include="samp\CChat.cpp" />
+    <ClCompile Include="samp\CConfig.cpp" />
+    <ClCompile Include="samp\CDeathWindow.cpp" />
     <ClCompile Include="samp\CDialog.cpp" />
+    <ClCompile Include="samp\CEntity.cpp" />
+    <ClCompile Include="samp\CFonts.cpp" />
+    <ClCompile Include="samp\CGame.cpp" />
+    <ClCompile Include="samp\CGangZonePool.cpp" />
+    <ClCompile Include="samp\CHttpClient.cpp" />
     <ClCompile Include="samp\CInput.cpp" />
+    <ClCompile Include="samp\CLabel.cpp" />
+    <ClCompile Include="samp\CLabelPool.cpp" />
+    <ClCompile Include="samp\CLicensePlate.cpp" />
+    <ClCompile Include="samp\CLocalPlayer.cpp" />
+    <ClCompile Include="samp\CMenu.cpp" />
+    <ClCompile Include="samp\CMenuPool.cpp" />
+    <ClCompile Include="samp\CNetGame.cpp" />
+    <ClCompile Include="samp\CNetStats.cpp" />
+    <ClCompile Include="samp\CObject.cpp" />
+    <ClCompile Include="samp\CObjectPool.cpp" />
+    <ClCompile Include="samp\CObjectSelection.cpp" />
+    <ClCompile Include="samp\Commands.cpp" />
     <ClCompile Include="samp\common.cpp" />
+    <ClCompile Include="samp\CPed.cpp" />
+    <ClCompile Include="samp\CPickupPool.cpp" />
+    <ClCompile Include="samp\CPlayerInfo.cpp" />
+    <ClCompile Include="samp\CPlayerPool.cpp" />
+    <ClCompile Include="samp\CPlayerTags.cpp" />
+    <ClCompile Include="samp\CRect.cpp" />
+    <ClCompile Include="samp\CRemotePlayer.cpp" />
+    <ClCompile Include="samp\CScoreboard.cpp" />
+    <ClCompile Include="samp\CSpawnScreen.cpp" />
+    <ClCompile Include="samp\CTextDraw.cpp" />
+    <ClCompile Include="samp\CTextDrawPool.cpp" />
+    <ClCompile Include="samp\CTextDrawSelection.cpp" />
+    <ClCompile Include="samp\CVector.cpp" />
+    <ClCompile Include="samp\CVehicle.cpp" />
+    <ClCompile Include="samp\CVehiclePool.cpp" />
+    <ClCompile Include="samp\Debug.cpp" />
+    <ClCompile Include="samp\DebugScript.cpp" />
+    <ClCompile Include="samp\Exception.cpp" />
+    <ClCompile Include="samp\GUI.cpp" />
+    <ClCompile Include="samp\InputHandler.cpp" />
+    <ClCompile Include="samp\KeyStuff.cpp" />
+    <ClCompile Include="samp\RPC.cpp" />
+    <ClCompile Include="samp\Scripting.cpp" />
+    <ClCompile Include="samp\Settings.cpp" />
+    <ClCompile Include="samp\VehicleSelection.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bass.h" />
@@ -192,10 +242,65 @@
     <ClInclude Include="keyhook.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="samp\AimStuff.h" />
+    <ClInclude Include="samp\Animation.h" />
+    <ClInclude Include="samp\CActor.h" />
+    <ClInclude Include="samp\CActorPool.h" />
+    <ClInclude Include="samp\CAudio.h" />
+    <ClInclude Include="samp\CAudioStream.h" />
+    <ClInclude Include="samp\CCamera.h" />
     <ClInclude Include="samp\CChat.h" />
+    <ClInclude Include="samp\CConfig.h" />
+    <ClInclude Include="samp\CDeathWindow.h" />
     <ClInclude Include="samp\CDialog.h" />
+    <ClInclude Include="samp\CEntity.h" />
+    <ClInclude Include="samp\CFonts.h" />
+    <ClInclude Include="samp\CGame.h" />
+    <ClInclude Include="samp\CGangZonePool.h" />
+    <ClInclude Include="samp\CHttpClient.h" />
     <ClInclude Include="samp\CInput.h" />
+    <ClInclude Include="samp\CLabel.h" />
+    <ClInclude Include="samp\CLabelPool.h" />
+    <ClInclude Include="samp\CLicensePlate.h" />
+    <ClInclude Include="samp\CLocalPlayer.h" />
+    <ClInclude Include="samp\CMatrix.h" />
+    <ClInclude Include="samp\CMenu.h" />
+    <ClInclude Include="samp\CMenuPool.h" />
+    <ClInclude Include="samp\CNetGame.h" />
+    <ClInclude Include="samp\CNetStats.h" />
+    <ClInclude Include="samp\CObject.h" />
+    <ClInclude Include="samp\CObjectPool.h" />
+    <ClInclude Include="samp\CObjectSelection.h" />
+    <ClInclude Include="samp\Commands.h" />
     <ClInclude Include="samp\common.h" />
+    <ClInclude Include="samp\ControllerState.h" />
+    <ClInclude Include="samp\CPed.h" />
+    <ClInclude Include="samp\CPickupPool.h" />
+    <ClInclude Include="samp\CPlayerInfo.h" />
+    <ClInclude Include="samp\CPlayerPool.h" />
+    <ClInclude Include="samp\CPlayerTags.h" />
+    <ClInclude Include="samp\CRect.h" />
+    <ClInclude Include="samp\CRemotePlayer.h" />
+    <ClInclude Include="samp\CScoreboard.h" />
+    <ClInclude Include="samp\CSpawnScreen.h" />
+    <ClInclude Include="samp\CTextDraw.h" />
+    <ClInclude Include="samp\CTextDrawPool.h" />
+    <ClInclude Include="samp\CTextDrawSelection.h" />
+    <ClInclude Include="samp\CVector.h" />
+    <ClInclude Include="samp\CVehicle.h" />
+    <ClInclude Include="samp\CVehiclePool.h" />
+    <ClInclude Include="samp\Debug.h" />
+    <ClInclude Include="samp\DebugScript.h" />
+    <ClInclude Include="samp\Exception.h" />
+    <ClInclude Include="samp\GUI.h" />
+    <ClInclude Include="samp\InputHandler.h" />
+    <ClInclude Include="samp\KeyStuff.h" />
+    <ClInclude Include="samp\Packets.h" />
+    <ClInclude Include="samp\RPC.h" />
+    <ClInclude Include="samp\Scripting.h" />
+    <ClInclude Include="samp\Settings.h" />
+    <ClInclude Include="samp\SpecialAction.h" />
+    <ClInclude Include="samp\VehicleSelection.h" />
     <ClInclude Include="STTFile.hpp" />
   </ItemGroup>
   <ItemGroup>

@@ -10,13 +10,13 @@
 #pragma once
 
 #include "common.h"
+#include "CRect.h"
+#include "Commands.h"
 
 #define MAX_CLIENT_CMDS 144
 #define MAX_CMD_LENGTH 32
 
 SAMP_BEGIN
-
-typedef void(__cdecl *CMDPROC)(const char *);
 
 class SAMP_API CInput {
 public:
@@ -36,7 +36,7 @@ public:
 
 	CInput(IDirect3DDevice9 *pDevice);
 
-	void GetRect(RECT *pRect);
+	void GetRect(CRect *pRect);
 	void Open();
 	void Close();
 	void AddRecall(const char *szString);

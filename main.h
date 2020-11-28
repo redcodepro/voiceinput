@@ -29,6 +29,7 @@
 #include "samp/CChat.h"
 #include "samp/CDialog.h"
 #include "samp/CInput.h"
+#include "samp/CNetGame.h"
 
 #include "jansson/jansson.h"
 
@@ -121,5 +122,6 @@ void load_config(const char* filename);
 void save_config(const char* filename);
 
 void SAMP_AddChatMessage(D3DCOLOR color, const char *format, ...);
+void SAMP_SendChat(const char* text);
 
 #endif

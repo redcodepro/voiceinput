@@ -10,6 +10,7 @@
 #pragma once
 
 #include "common.h"
+#include "CRect.h"
 
 SAMP_BEGIN
 
@@ -34,7 +35,7 @@ public:
 
 	enum { MessageBox, Input, List, PasswordInput, TabList, HeadersList };
 
-	void GetScreenRect(RECT *pRect);
+	void GetScreenRect(CRect *pRect);
 	int GetTextScreenLength(const char *szString);
 	void Hide();
 	void ResetDialogControls(CDXUTDialog *pDialog);

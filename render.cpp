@@ -9,7 +9,7 @@ IDirect3DTexture9* pTexture[3];
 #define ID_BACK  1
 #define ID_ROUND 2
 
-CD3DRender		*render = new CD3DRender(128);
+CD3DRender *render = new CD3DRender(128);
 
 HRESULT CALLBACK hooked_Present(IDirect3DDevice9* pDevice, const RECT* r1, const RECT* r2, HWND hwnd, const RGNDATA* rngd)
 {
@@ -63,57 +63,61 @@ HRESULT CALLBACK hooked_Present(IDirect3DDevice9* pDevice, const RECT* r1, const
 			static float microphone_alpha = 0.56f;
 			static bool  alpha_orient = false;
 
-			if (ps.dwPluginState == STATE_ALREADY)
+			switch (ps.dwPluginState)
 			{
-				if (requesting_alpha > 0.56f)
+			case STATE_ALREADY:
 				{
-					requesting_alpha -= 3.0f * frame_time;
-					if (requesting_alpha < 0.56f)
-						requesting_alpha = 0.56f;
-				}
+					if (requesting_alpha > 0.56f)
+					{
+						requesting_alpha -= 3.0f * frame_time;
+						if (requesting_alpha < 0.56f)
+							requesting_alpha = 0.56f;
+					}
 
-				if (microphone_alpha > 0.56f)
-				{
-					microphone_alpha -= 3.0f * frame_time;
 					if (microphone_alpha > 0.56f)
-						microphone_alpha = 0.56f;
+					{
+						microphone_alpha -= 3.0f * frame_time;
+						if (microphone_alpha > 0.56f)
+							microphone_alpha = 0.56f;
+					}
 				}
-			}
-
-			if (ps.dwPluginState == STATE_RECORDING)
-			{
-				if (requesting_alpha < 1.0f)
+				break;
+			case STATE_RECORDING:
 				{
-					requesting_alpha += 3.0f * frame_time;
-					if (requesting_alpha > 1.0f)
-						requesting_alpha = 1.0f;
+					if (requesting_alpha < 1.0f)
+					{
+						requesting_alpha += 3.0f * frame_time;
+						if (requesting_alpha > 1.0f)
+							requesting_alpha = 1.0f;
+					}
+
+					if (microphone_alpha < 1.0f)
+					{
+						microphone_alpha += 3.0f * frame_time;
+						if (microphone_alpha > 1.0f)
+							microphone_alpha = 1.0f;
+					}
 				}
-
-				if (microphone_alpha < 1.0f)
+				break;
+			case STATE_REQUESTING:
 				{
-					microphone_alpha += 3.0f * frame_time;
-					if (microphone_alpha > 1.0f)
-						microphone_alpha = 1.0f;
-				}
-			}
-
-			if (ps.dwPluginState == STATE_REQUESTING)
-			{
-				if (microphone_alpha > 0.56f)
-				{
-					microphone_alpha -= 3.0f * frame_time;
 					if (microphone_alpha > 0.56f)
-						microphone_alpha = 0.56f;
+					{
+						microphone_alpha -= 3.0f * frame_time;
+						if (microphone_alpha > 0.56f)
+							microphone_alpha = 0.56f;
+					}
+
+					float pulse_step = 2.1f * frame_time;
+
+					if (requesting_alpha + pulse_step >= 1.0f)
+						alpha_orient = false;
+					if (requesting_alpha - pulse_step <= 0.5f)
+						alpha_orient = true;
+
+					requesting_alpha += alpha_orient ? pulse_step : -pulse_step;
 				}
-
-				float pulse_step = 2.1f * frame_time;
-
-				if (requesting_alpha + pulse_step >= 1.0f)
-					alpha_orient = false;
-				if (requesting_alpha - pulse_step <= 0.5f)
-					alpha_orient = true;
-
-				requesting_alpha += alpha_orient ? pulse_step : -pulse_step;
+				break;
 			}
 
 			render->DrawTexture(ps.pos_x, ps.pos_y, 32, 32, pTexture[ID_BACK]);

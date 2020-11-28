@@ -89,7 +89,7 @@ void mainloop()
 	static bool init = false;
 	if (!init)
 	{
-		if (G.gameState != 9 || SAMP::pChat == nullptr || SAMP::pInputBox == nullptr || SAMP::pDialog == nullptr)
+		if (G.gameState != 9 || SAMP::pNetGame == nullptr || SAMP::pChat == nullptr || SAMP::pInputBox == nullptr || SAMP::pDialog == nullptr)
 			return;
 
 		load_config(".\\VoiceInput.json");
@@ -108,7 +108,7 @@ void mainloop()
 
 	while (!speech.empty())
 	{
-		((void(__thiscall *)(void*, const char *))SAMP_ADDROF(0x57F0))(nullptr, speech.front().c_str());
+		SAMP_SendChat(speech.front().c_str());
 		speech.pop();
 	}
 
@@ -169,7 +169,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
 			DisableThreadLibraryCalls(hModule);
 
 			MH_Initialize();
-			MH_CreateHook((void*)0x748DA3, &hooked_mainloop, reinterpret_cast<void**>(&orig_mainloop));
+			MH_CreateHook((void*)0x748DA3, &hooked_mainloop, (void**)(&orig_mainloop));
 			MH_EnableHook((void*)0x748DA3);
 		}
 		break;
@@ -365,4 +365,19 @@ void SAMP_AddChatMessage(D3DCOLOR color, const char *format, ...)
 	SAMP::pChat->FilterOutInvalidChars(buf);
 
 	SAMP::pChat->AddEntry(SAMP::CHAT_TYPE_DEBUG, buf, NULL, color, NULL);
+}
+
+void SAMP_SendChat(const char* text)
+{
+	if (text == nullptr)
+		return;
+
+	if (text[0] == '/')
+	{
+		SAMP::pInputBox->Send(text);
+	}
+	else
+	{
+		SAMP::pNetGame->m_pPools->m_pPlayer->m_localInfo.m_pObject->Chat(text);
+	}
 }

@@ -13,8 +13,8 @@
 
 SAMP::CChat *&SAMP::pChat = *(SAMP::CChat **)SAMP_ADDROF(0x21A0E4);
 
-SAMP::CChat::CChat(IDirect3DDevice9 *pDevice, void *pFontRenderer, const char *pChatLogPath) {
-	((void(__thiscall *)(CChat *, IDirect3DDevice9 *, void *, const char *))SAMP_ADDROF(0x647B0))(this, pDevice, pFontRenderer, pChatLogPath);
+SAMP::CChat::CChat(IDirect3DDevice9 *pDevice, CFonts *pFontRenderer, const char *pChatLogPath) {
+	((void(__thiscall *)(CChat *, IDirect3DDevice9 *, CFonts *, const char *))SAMP_ADDROF(0x647B0))(this, pDevice, pFontRenderer, pChatLogPath);
 }
 
 SAMP::CChat::~CChat() {
@@ -53,8 +53,8 @@ void SAMP::CChat::PageDown() {
 	((void(__thiscall *)(CChat *))SAMP_ADDROF(0x63760))(this);
 }
 
-void SAMP::CChat::RenderEntry(const char *szText, RECT rect, D3DCOLOR color) {
-	((void(__thiscall *)(CChat *, const char *, RECT, D3DCOLOR))SAMP_ADDROF(0x638A0))(this, szText, rect, color);
+void SAMP::CChat::RenderEntry(const char *szText, CRect rect, D3DCOLOR color) {
+	((void(__thiscall *)(CChat *, const char *, CRect, D3DCOLOR))SAMP_ADDROF(0x638A0))(this, szText, rect, color);
 }
 
 void SAMP::CChat::Log(int nType, const char *szText, const char *szPrefix) {
@@ -91,4 +91,21 @@ void SAMP::CChat::ScrollToBottom() {
 
 void SAMP::CChat::FilterOutInvalidChars(char *szText) {
 	((void(__thiscall *)(CChat *, char *))SAMP_ADDROF(0x63850))(this, szText);
+}
+
+void SAMP::CChat::Print(CChat *pChat, D3DCOLOR dwColor, const char *pFormat, ...) {
+	char buf[512];
+	
+	for (int i = 0; i < 512; i++)
+		buf[i] = 0;
+	
+	va_list args;
+	
+	va_start(args, pFormat);
+	vsprintf_s(buf, pFormat, args);
+	va_end(args);
+
+	pChat->FilterOutInvalidChars(buf);
+
+	pChat->AddEntry(CHAT_TYPE_DEBUG, buf, nullptr, dwColor, 0);
 }

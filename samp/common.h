@@ -9,8 +9,6 @@
 
 #pragma once
 
-#include <windows.h>
-
 #define SAMP_API
 
 #define SAMP_BEGIN_NP namespace SAMP {

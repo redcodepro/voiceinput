@@ -10,6 +10,7 @@
 #pragma once
 
 #include "common.h"
+#include "CFonts.h"
 
 SAMP_BEGIN
 
@@ -44,7 +45,7 @@ public:
 		D3DCOLOR			m_textColor;
 		D3DCOLOR			m_prefixColor;
 	}							m_entry[100];
-	void				  *m_pFontRenderer;
+	CFonts				  *m_pFontRenderer;
 	ID3DXSprite			  *m_pTextSprite;
 	ID3DXSprite			  *m_pSprite;
 	IDirect3DDevice9	  *m_pDevice;
@@ -65,7 +66,7 @@ public:
 
 	enum { Off, NoShadow, Normal };
 
-	CChat(IDirect3DDevice9 *pDevice, void *pFontRenderer, const char *pChatLogPath);
+	CChat(IDirect3DDevice9 *pDevice, CFonts *pFontRenderer, const char *pChatLogPath);
 	~CChat();
 
 	int GetMode() { return m_nMode; }
@@ -80,7 +81,7 @@ public:
 	void Scroll(int nDelta);
 	void FilterOutInvalidChars(char *szString);
 	void PushBack();
-	void RenderEntry(const char *szText, RECT rect, D3DCOLOR color);
+	void RenderEntry(const char *szText, CRect rect, D3DCOLOR color);
 	void Log(int nType, const char *szText, const char *szPrefix);
 	void ResetDialogControls(CDXUTDialog *pGameUi);
 	void Render();
@@ -90,6 +91,8 @@ public:
 	void AddChatMessage(const char *szPrefix, D3DCOLOR prefixColor, const char *szText);
 	void AddMessage(D3DCOLOR color, const char *szText);
 	void OnResetDevice();
+
+	static void Print(CChat *pChat, D3DCOLOR dwColor, const char *pFormat, ...);
 };
 
 extern CChat *&pChat;

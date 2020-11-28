@@ -31,8 +31,8 @@ void SAMP::CDialog::Show(int nId, int nType, const char *szCaption, const char *
 	((void(__thiscall *)(CDialog *, int, int, const char *, const char *, const char *, const char *, BOOL))SAMP_ADDROF(0x6B9C0))(this, nId, nType, szCaption, szText, szLeftButton, szRightButton, bServerside);
 }
 
-void SAMP::CDialog::GetScreenRect(RECT *pRect) {
-	((void(__thiscall *)(CDialog *, RECT *))SAMP_ADDROF(0x6B060))(this, pRect);
+void SAMP::CDialog::GetScreenRect(CRect *pRect) {
+	((void(__thiscall *)(CDialog *, CRect *))SAMP_ADDROF(0x6B060))(this, pRect);
 }
 
 void SAMP::CDialog::UpdateRects() {

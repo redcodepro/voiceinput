@@ -15,8 +15,8 @@ SAMP::CInput::CInput(IDirect3DDevice9 *pDevice) {
 	((void(__thiscall *)(CInput *, IDirect3DDevice9 *))SAMP_ADDROF(0x65730))(this, pDevice);
 }
 
-void SAMP::CInput::GetRect(RECT *pRect) {
-	((void(__thiscall *)(CInput *, RECT *))SAMP_ADDROF(0x657A0))(this, pRect);
+void SAMP::CInput::GetRect(CRect *pRect) {
+	((void(__thiscall *)(CInput *, CRect *))SAMP_ADDROF(0x657A0))(this, pRect);
 }
 
 void SAMP::CInput::Open() {

@@ -307,7 +307,7 @@ int key_lookup(const char* name)
 std::string key_delookup(int key)
 {
 	if (key >= 'A' && key <= 'Z')
-		return std::string(1, key);
+		return std::string(1, ('a' + (key - 'A')));
 
 	if (key >= '0' && key <= '9')
 		return std::string(1, key);
