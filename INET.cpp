@@ -82,7 +82,7 @@ std::string RecognizeUsingVoiceInputAPI(STTFile* file)
 	static bool prepare_client = true;
 	if (prepare_client)
 	{
-		URL = wstring(L"crc-api/stt.php?service=" + get_utf16(ps.used_api, CP_UTF8) + L"&lang=" + get_utf16(ps.languageCode, CP_UTF8));
+		URL = wstring(L"voiceinput/api.php?service=" + get_utf16(ps.used_api, CP_UTF8) + L"&lang=" + get_utf16(ps.languageCode, CP_UTF8));
 		prepare_client = false;
 	}
 
