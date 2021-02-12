@@ -47,9 +47,6 @@
     <ClCompile Include="render.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="INET.cpp">
-      <Filter>API</Filter>
-    </ClCompile>
     <ClCompile Include="samp\CActor.cpp">
       <Filter>samp</Filter>
     </ClCompile>
@@ -212,6 +209,7 @@
     <ClCompile Include="samp\AimStuff.cpp">
       <Filter>samp</Filter>
     </ClCompile>
+    <ClCompile Include="INET.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="hook">
@@ -268,9 +266,6 @@
     </ClInclude>
     <ClInclude Include="render.h">
       <Filter>Render</Filter>
-    </ClInclude>
-    <ClInclude Include="INET.h">
-      <Filter>API</Filter>
     </ClInclude>
     <ClInclude Include="STTFile.hpp" />
     <ClInclude Include="hook\MinHook.h">
@@ -453,6 +448,7 @@
     <ClInclude Include="samp\AimStuff.h">
       <Filter>samp</Filter>
     </ClInclude>
+    <ClInclude Include="INET.h" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="bass.lib">
@@ -472,6 +468,8 @@
     <Image Include="res\circle.png">
       <Filter>Render\textures</Filter>
     </Image>
-    <Image Include="res\background.png" />
+    <Image Include="res\background.png">
+      <Filter>Render\textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -6,7 +6,7 @@ struct PLUGIN_DATA	ps;
 STTFile	*file = nullptr;
 HRECORD	record = 0;
 
-queue<string> speech;
+std::queue<std::string> speech;
 
 BOOL CALLBACK RecordProc(HRECORD hRec, const void *buf, DWORD length, void *user)
 {
@@ -52,11 +52,11 @@ DWORD WINAPI POST_Thread(LPVOID arg)
 		{
 			if (file && file->ñontent_length() > 500)
 			{
-				string result = RecognizeUsingVoiceInputAPI(file);
+				std::string result = RecognizeUsingVoiceInputAPI(file);
 
 				if (!result.empty())
 				{
-					string ansi = lite_conv(result, CP_UTF8, CP_ACP);
+					std::string ansi = lite_conv(result, CP_UTF8, CP_ACP);
 					size_t max_len = 127 - ps.presets[ps.iPresetID].format.length() - 2;
 					if (ansi.length() > max_len)
 						ansi.resize(max_len);
@@ -84,13 +84,14 @@ DWORD WINAPI POST_Thread(LPVOID arg)
 	ExitThread(0);
 }
 
-void mainloop()
+hookedMainloop_t orig_mainloop;
+void hooked_mainloop()
 {
 	static bool init = false;
 	if (!init)
 	{
-		if (G.gameState != 9 || SAMP::pNetGame == nullptr || SAMP::pChat == nullptr || SAMP::pInputBox == nullptr || SAMP::pDialog == nullptr)
-			return;
+		if (G.gameState != 9 || SAMP::GetHandle() == NULL || SAMP::pNetGame == nullptr || SAMP::pChat == nullptr || SAMP::pInputBox == nullptr || SAMP::pDialog == nullptr)
+			return orig_mainloop();
 
 		load_config(".\\VoiceInput.json");
 
@@ -105,7 +106,7 @@ void mainloop()
 		}
 		init = true;
 	}
-
+	
 	while (!speech.empty())
 	{
 		SAMP_SendChat(speech.front().c_str());
@@ -148,13 +149,6 @@ void mainloop()
 	{
 		keyhook_run();
 	}
-}
-
-hookedMainloop_t orig_mainloop;
-void CALLBACK hooked_mainloop()
-{
-	mainloop();
-
 	return orig_mainloop();
 }
 
@@ -169,8 +163,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
 			DisableThreadLibraryCalls(hModule);
 
 			MH_Initialize();
-			MH_CreateHook((void*)0x748DA3, &hooked_mainloop, (void**)(&orig_mainloop));
-			MH_EnableHook((void*)0x748DA3);
+			MH_CreateHookEx((void*)0x748DA3, &hooked_mainloop, &orig_mainloop);
 		}
 		break;
 	case DLL_PROCESS_DETACH:
@@ -322,7 +315,7 @@ void save_config(const char* filename)
 					json_t* obj00 = json_object();
 					if (json_is_object(obj00))
 					{
-						string temp = ps.presets.at(i).format;
+						std::string temp = ps.presets.at(i).format;
 						string_replace(temp, "%s", "<text>");
 						json_object_set(obj00, "format", json_string(temp.c_str()));
 

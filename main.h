@@ -41,8 +41,6 @@
 
 #define VT_FUNC(vt, i)	((void**)(*(void***)(vt))[i])
 
-using namespace std;
-
 typedef void(__cdecl* hookedMainloop_t)(void);
 
 struct ___globals
@@ -68,8 +66,8 @@ enum
 
 struct CHAT_PROFILE
 {
-	int		keys[2] = {0, 0};
-	string	format;
+	int			keys[2] = {0, 0};
+	std::string	format;
 	CHAT_PROFILE() {};
 	CHAT_PROFILE(const char* fmt, int key1, int key2 = NULL)
 	{
@@ -86,7 +84,7 @@ struct PLUGIN_DATA
 	uint32_t iPresetID = 0; // = GENERIC
 
 	// main
-	vector<CHAT_PROFILE> presets = {
+	std::vector<CHAT_PROFILE> presets = {
 		CHAT_PROFILE("%s", VK_F2),
 		CHAT_PROFILE("/b %s", 0x42),
 		CHAT_PROFILE("/r %s", 0x50),
@@ -106,11 +104,8 @@ struct PLUGIN_DATA
 	int32_t	pos_y = 236;
 
 	// reco settings
-	string hostname = "f0446239.xsph.ru";
-	string url		= "crc-api/stt.php";
-	string used_api	= "default";
-	string languageCode = "ru-RU";
-
+	std::string used_api	= "default";
+	std::string languageCode = "ru-RU";
 	
 	//bool animations = true;
 	bool saveLastRecord = false;

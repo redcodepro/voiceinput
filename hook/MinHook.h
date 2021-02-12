@@ -184,3 +184,11 @@ extern "C" {
 }
 #endif
 
+template <typename T>
+inline MH_STATUS MH_CreateHookEx(LPVOID pTarget, LPVOID pDetour, T** ppOriginal)
+{
+	MH_STATUS status = MH_CreateHook(pTarget, pDetour, reinterpret_cast<void**>(ppOriginal));
+	if (status != MH_STATUS::MH_OK)
+		return status;
+	return MH_EnableHook(pTarget);
+}
