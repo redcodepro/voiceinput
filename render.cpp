@@ -28,35 +28,6 @@ HRESULT CALLBACK hooked_Present(IDirect3DDevice9* pDevice, const RECT* r1, const
 
 	if (!G.isMenuOpened && ps.dwPluginState != STATE_NOTAVAIL)
 	{
-		static bool move = false;
-		static int offset[2] = {0, 0};
-
-		POINT &curPos = keyhook_get_mouse_position();
-
-		if (move)
-		{
-			if (KEY_DOWN(VK_LBUTTON))
-			{
-				ps.pos_x = curPos.x - offset[0];
-				ps.pos_y = curPos.y - offset[1];
-
-				if (ps.pos_x < 0) ps.pos_x = 0;
-				if (ps.pos_y < 0) ps.pos_y = 0;
-				if (ps.pos_x + 32 > *(int*)0xC9C040) ps.pos_x = ((*(int*)0xC9C040) - 32);
-				if (ps.pos_y + 32 > *(int*)0xC9C044) ps.pos_y = ((*(int*)0xC9C044) - 32);
-			}
-			else move = false;
-		}
-		else
-		{
-			if (SAMP::pInputBox->m_bEnabled && KEY_PRESSED(VK_LBUTTON) && MOUSE_HOVERED(ps.pos_x, ps.pos_y, 32, 32))
-			{
-				offset[0] = curPos.x - ps.pos_x;
-				offset[1] = curPos.y - ps.pos_y;
-				move = true;
-			}
-		}
-		
 		if (SUCCEEDED(render->BeginRender()))
 		{
 			static float requesting_alpha = 0.56f;
@@ -147,11 +118,8 @@ HRESULT CALLBACK hooked_Reset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* 
 
 void renderInit()
 {
-	MH_CreateHook(VT_FUNC(G.pD3DDevice, 17), &hooked_Present, reinterpret_cast<void**>(&orig_Present));
-	MH_EnableHook(VT_FUNC(G.pD3DDevice, 17));
-
-	MH_CreateHook(VT_FUNC(G.pD3DDevice, 16), &hooked_Reset, reinterpret_cast<void**>(&orig_Reset));
-	MH_EnableHook(VT_FUNC(G.pD3DDevice, 16));
+	MH_CreateHookEx(VT_FUNC(G.pD3DDevice, 16), &hooked_Reset, &orig_Reset);
+	MH_CreateHookEx(VT_FUNC(G.pD3DDevice, 17), &hooked_Present, &orig_Present);
 }
 
 void renderFree()

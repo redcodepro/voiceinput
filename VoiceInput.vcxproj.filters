@@ -6,43 +6,40 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="jansson\memory.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\pack_unpack.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\strbuffer.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\strconv.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\utf.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\value.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\version.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\dump.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\error.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\hashtable.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\hashtable_seed.c">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="jansson\load.c">
-      <Filter>API\jansson</Filter>
-    </ClCompile>
-    <ClCompile Include="keyhook.cpp">
-      <Filter>API</Filter>
+      <Filter>External\jansson</Filter>
     </ClCompile>
     <ClCompile Include="render.cpp">
       <Filter>Render</Filter>
@@ -210,22 +207,26 @@
       <Filter>samp</Filter>
     </ClCompile>
     <ClCompile Include="INET.cpp" />
+    <ClCompile Include="keyhook.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="hook">
-      <UniqueIdentifier>{34f8d200-bc83-43f7-aaca-9eeb45649e84}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Render">
       <UniqueIdentifier>{0d7c937f-6d71-4ef2-bc34-c20188d58d13}</UniqueIdentifier>
     </Filter>
     <Filter Include="Render\textures">
       <UniqueIdentifier>{4d02538b-5b88-4e5a-af23-57b0191b083e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API">
+    <Filter Include="External">
       <UniqueIdentifier>{4ef9c1d4-479a-4417-b4ac-c07d3d1367e4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="API\jansson">
+    <Filter Include="External\jansson">
       <UniqueIdentifier>{80a77845-12c7-4ba5-af3a-0d7ad1bb2884}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\minhook">
+      <UniqueIdentifier>{34f8d200-bc83-43f7-aaca-9eeb45649e84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="External\bass">
+      <UniqueIdentifier>{314b636f-1fb4-44a4-9764-01133ff59ada}</UniqueIdentifier>
     </Filter>
     <Filter Include="samp">
       <UniqueIdentifier>{90f3a719-8d1b-422e-8c90-592dfe0cfa1d}</UniqueIdentifier>
@@ -236,40 +237,34 @@
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="main.h" />
-    <ClInclude Include="bass.h">
-      <Filter>API</Filter>
-    </ClInclude>
     <ClInclude Include="jansson\strbuffer.h">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClInclude>
     <ClInclude Include="jansson\utf.h">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClInclude>
     <ClInclude Include="jansson\hashtable.h">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClInclude>
     <ClInclude Include="jansson\jansson.h">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClInclude>
     <ClInclude Include="jansson\jansson_config.h">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClInclude>
     <ClInclude Include="jansson\jansson_private.h">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClInclude>
     <ClInclude Include="jansson\lookup3.h">
-      <Filter>API\jansson</Filter>
+      <Filter>External\jansson</Filter>
     </ClInclude>
     <ClInclude Include="resource.h" />
-    <ClInclude Include="keyhook.h">
-      <Filter>API</Filter>
-    </ClInclude>
     <ClInclude Include="render.h">
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="STTFile.hpp" />
     <ClInclude Include="hook\MinHook.h">
-      <Filter>hook</Filter>
+      <Filter>External\minhook</Filter>
     </ClInclude>
     <ClInclude Include="samp\Animation.h">
       <Filter>samp</Filter>
@@ -449,13 +444,17 @@
       <Filter>samp</Filter>
     </ClInclude>
     <ClInclude Include="INET.h" />
+    <ClInclude Include="keyhook.h" />
+    <ClInclude Include="bass.h">
+      <Filter>External\bass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Library Include="bass.lib">
-      <Filter>API</Filter>
-    </Library>
     <Library Include="hook\libMinHook.x86.lib">
-      <Filter>hook</Filter>
+      <Filter>External\minhook</Filter>
+    </Library>
+    <Library Include="bass.lib">
+      <Filter>External\bass</Filter>
     </Library>
   </ItemGroup>
   <ItemGroup>

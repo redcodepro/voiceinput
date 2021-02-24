@@ -51,6 +51,9 @@ struct ___globals
 	HWND				&hwnd = *reinterpret_cast<HWND*>(0xC97C1C);
 	uint32_t			&gameState = *reinterpret_cast<uint32_t*>(0xC8D4C0);
 	bool				&isMenuOpened = *reinterpret_cast<bool*>(0xBA67A4);
+
+	int					&screen_x = *reinterpret_cast<int*>(0xC9C040);
+	int					&screen_y = *reinterpret_cast<int*>(0xC9C044);
 };
 
 extern struct ___globals G;

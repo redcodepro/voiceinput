@@ -85,7 +85,7 @@ DWORD WINAPI POST_Thread(LPVOID arg)
 }
 
 hookedMainloop_t orig_mainloop;
-void hooked_mainloop()
+void __cdecl hooked_mainloop()
 {
 	static bool init = false;
 	if (!init)
@@ -141,6 +141,38 @@ void hooked_mainloop()
 		}
 	}
 
+	if (!G.isMenuOpened && ps.dwPluginState != STATE_NOTAVAIL)
+	{
+		static bool move = false;
+		static int offset[2] = { 0, 0 };
+
+		POINT &curPos = keyhook_get_mouse_position();
+
+		if (move)
+		{
+			if (KEY_DOWN(VK_LBUTTON))
+			{
+				ps.pos_x = curPos.x - offset[0];
+				ps.pos_y = curPos.y - offset[1];
+
+				if (ps.pos_x < 0) ps.pos_x = 0;
+				if (ps.pos_y < 0) ps.pos_y = 0;
+				if (ps.pos_x + 32 > G.screen_x) ps.pos_x = G.screen_x - 32;
+				if (ps.pos_y + 32 > G.screen_y) ps.pos_y = G.screen_y - 32;
+			}
+			else move = false;
+		}
+		else
+		{
+			if (SAMP::pInputBox->m_bEnabled && KEY_PRESSED(VK_LBUTTON) && MOUSE_HOVERED(ps.pos_x, ps.pos_y, 32, 32))
+			{
+				offset[0] = curPos.x - ps.pos_x;
+				offset[1] = curPos.y - ps.pos_y;
+				move = true;
+			}
+		}
+	}
+
 	if (G.isMenuOpened)
 	{
 		keyhook_clear_states();
@@ -163,14 +195,14 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
 			DisableThreadLibraryCalls(hModule);
 
 			MH_Initialize();
-			MH_CreateHookEx((void*)0x748DA3, &hooked_mainloop, &orig_mainloop);
+			MH_CreateHookEx((void*)0x561B10, &hooked_mainloop, &orig_mainloop);
 		}
 		break;
 	case DLL_PROCESS_DETACH:
 		{
 			renderFree();
 
-			MH_RemoveHook((void*)0x748DA3);
+			MH_RemoveHook((void*)0x561B10);
 
 			if (hStopEvent && hThread)
 			{
