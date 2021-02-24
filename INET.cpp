@@ -25,7 +25,7 @@ std::wstring get_utf16(const std::string &str, int codepage)
 	return res;
 }
 
-std::string HttpWebRequest(LPCWSTR type, LPCWSTR domain, LPCWSTR url, LPVOID data, size_t data_len, bool useHTTPS, LPCWSTR headers)
+std::string HttpWebRequest(LPCWSTR type, LPCWSTR domain, LPCWSTR url, LPVOID data, size_t data_len, bool useHTTPS, LPCWSTR headers = WINHTTP_NO_ADDITIONAL_HEADERS)
 {
 	std::string	response;
 
@@ -55,7 +55,7 @@ std::string HttpWebRequest(LPCWSTR type, LPCWSTR domain, LPCWSTR url, LPVOID dat
 									DWORD dwDownloaded = 0;
 									if (WinHttpReadData(hRequest, (LPVOID)outBuffer, dwSize, &dwDownloaded))
 									{
-										outBuffer[dwDownloaded] = L'\0';
+										outBuffer[dwDownloaded] = '\0';
 										response += outBuffer;
 									}
 
@@ -65,6 +65,9 @@ std::string HttpWebRequest(LPCWSTR type, LPCWSTR domain, LPCWSTR url, LPVOID dat
 							}
 
 						} while (dwSize > 0);
+
+						if (GetLastError() != ERROR_SUCCESS)
+							response.clear();
 					}
 				}
 				WinHttpCloseHandle(hRequest);
@@ -79,17 +82,20 @@ std::string HttpWebRequest(LPCWSTR type, LPCWSTR domain, LPCWSTR url, LPVOID dat
 std::string RecognizeUsingVoiceInputAPI(STTFile* file)
 {
 	static std::wstring URL;
-	static bool prepare_client = true;
-	if (prepare_client)
+	if (URL.empty())
 	{
 		URL = std::wstring(L"voiceinput/api.php?service=" + get_utf16(ps.used_api, CP_UTF8) + L"&lang=" + get_utf16(ps.languageCode, CP_UTF8));
-		prepare_client = false;
 	}
 
 	std::string result;
+	std::string responce = HttpWebRequest(L"POST", L"f0446239.xsph.ru", URL.c_str(), file->data(), file->size(), false);
+	if (responce.empty())
+	{
+		SAMP->AddChatMessage(0xFFFF4545, "[VoiceInput] Unexpected error occurred.");
+		return std::string();
+	}
 
-	json_error_t error;
-	json_t *root = json_loads(HttpWebRequest(L"POST", L"f0446239.xsph.ru", URL.c_str(), file->data(), file->size(), false, WINHTTP_NO_ADDITIONAL_HEADERS).c_str(), 0, &error);
+	json_t *root = json_loads(responce.c_str(), 0, NULL);
 	if (json_is_object(root))
 	{
 		json_t *error = json_object_get(root, "error");
@@ -100,9 +106,9 @@ std::string RecognizeUsingVoiceInputAPI(STTFile* file)
 			json_t *message = json_object_get(error, "message");
 
 			if (json_is_integer(code) && json_is_string(status) && json_is_string(message))
-				SAMP_AddChatMessage(0xFFFF4545, "[ERROR: %d] %s: {FFFFFF}%s", json_integer_value(code), json_string_value(status), lite_conv(std::string(json_string_value(message)), CP_UTF8, CP_ACP).c_str());
+				SAMP->AddChatMessage(0xFFFF4545, "[ERROR: %d] %s: {FFFFFF}%s", json_integer_value(code), json_string_value(status), lite_conv(std::string(json_string_value(message)), CP_UTF8, CP_ACP).c_str());
 			else
-				SAMP_AddChatMessage(0xFFFF4545, "[VoiceInput] Unexpected error occurred.");
+				SAMP->AddChatMessage(0xFFFF4545, "[VoiceInput] Unexpected error occurred.");
 		}
 		else
 		{

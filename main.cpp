@@ -90,7 +90,7 @@ void __cdecl hooked_mainloop()
 	static bool init = false;
 	if (!init)
 	{
-		if (G.gameState != 9 || SAMP::GetHandle() == NULL || SAMP::pNetGame == nullptr || SAMP::pChat == nullptr || SAMP::pInputBox == nullptr || SAMP::pDialog == nullptr)
+		if (G.gameState != 9 || !SAMP->Init())
 			return orig_mainloop();
 
 		load_config(".\\VoiceInput.json");
@@ -109,11 +109,11 @@ void __cdecl hooked_mainloop()
 	
 	while (!speech.empty())
 	{
-		SAMP_SendChat(speech.front().c_str());
+		SAMP->SendChat(speech.front().c_str());
 		speech.pop();
 	}
 
-	if (ps.dwPluginState == STATE_ALREADY && !SAMP::pInputBox->m_bEnabled && !SAMP::pDialog->m_bIsActive)
+	if (ps.dwPluginState == STATE_ALREADY && !SAMP->getInput()->iInputEnabled && !SAMP->getDialog()->iIsActive)
 	{
 		int preset_id = -1;
 
@@ -164,7 +164,7 @@ void __cdecl hooked_mainloop()
 		}
 		else
 		{
-			if (SAMP::pInputBox->m_bEnabled && KEY_PRESSED(VK_LBUTTON) && MOUSE_HOVERED(ps.pos_x, ps.pos_y, 32, 32))
+			if (SAMP->getInput()->iInputEnabled && KEY_PRESSED(VK_LBUTTON) && MOUSE_HOVERED(ps.pos_x, ps.pos_y, 32, 32))
 			{
 				offset[0] = curPos.x - ps.pos_x;
 				offset[1] = curPos.y - ps.pos_y;
@@ -194,6 +194,8 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
 		{
 			DisableThreadLibraryCalls(hModule);
 
+			SAMP = new CSAMP();
+
 			MH_Initialize();
 			MH_CreateHookEx((void*)0x561B10, &hooked_mainloop, &orig_mainloop);
 		}
@@ -213,7 +215,7 @@ BOOL WINAPI DllMain(HMODULE hModule, DWORD reason, LPVOID lpReserved)
 			}
 			BASS_RecordFree();
 
-			//save_config(".\\VoiceInput.json");
+			_delete(SAMP);
 
 			MH_Uninitialize();
 		}
@@ -373,36 +375,4 @@ void save_config(const char* filename)
 	json_dump_file(to_save, filename, JSON_INDENT(2));
 
 	json_decref(to_save);
-}
-
-void SAMP_AddChatMessage(D3DCOLOR color, const char *format, ...)
-{
-	if (format == NULL)
-		return;
-
-	va_list ap;
-	char buf[512];
-
-	va_start(ap, format);
-	vsprintf_s(buf, format, ap);
-	va_end(ap);
-
-	SAMP::pChat->FilterOutInvalidChars(buf);
-
-	SAMP::pChat->AddEntry(SAMP::CHAT_TYPE_DEBUG, buf, NULL, color, NULL);
-}
-
-void SAMP_SendChat(const char* text)
-{
-	if (text == nullptr)
-		return;
-
-	if (text[0] == '/')
-	{
-		SAMP::pInputBox->Send(text);
-	}
-	else
-	{
-		SAMP::pNetGame->m_pPools->m_pPlayer->m_localInfo.m_pObject->Chat(text);
-	}
 }
