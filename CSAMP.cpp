@@ -1,12 +1,12 @@
 #include "main.h"
 
 #define SAMP_CHAT_INFO_OFFSET_R1	0x21A0E4
-#define SAMP_CHAT_INFO_OFFSET_R2	0
+#define SAMP_CHAT_INFO_OFFSET_R2	0x21A0EC
 #define SAMP_CHAT_INFO_OFFSET_R3	0x26E8C8
 #define SAMP_CHAT_INFO_OFFSET_R4	0x26E9F8
 
 #define SAMP_INPUT_INFO_OFFSET_R1	0x21A0E8
-#define SAMP_INPUT_INFO_OFFSET_R2	0
+#define SAMP_INPUT_INFO_OFFSET_R2	0x21A0F0
 #define SAMP_INPUT_INFO_OFFSET_R3	0x26E8CC
 #define SAMP_INPUT_INFO_OFFSET_R4	0x26E9FC
 
@@ -53,18 +53,18 @@ bool CSAMP::Init()
 				fSendSay = samp_offset<SendSay_t>(0x57F0);
 			}
 			break;
-		/*case 0x3195DD:
+		case 0x3195DD:
 			{
 				SAMP_Version = 2;
 
 				// Init functions
-				fAddChatMessage = samp_offset<AddChatMessage_t>(0);
+				fAddChatMessage = samp_offset<AddChatMessage_t>(0x640E0);
 
-				fAddClientCommand = samp_offset<AddClientCommand_t>(0);
+				fAddClientCommand = samp_offset<AddClientCommand_t>(0x65BA0);
 				fSendCommand = samp_offset<SendCommand_t>(0x65D30);
 				fSendSay = samp_offset<SendSay_t>(0x57E0);
 			}
-			break;*/
+			break;
 		case 0xCC4D0:
 			{
 				SAMP_Version = 3;
@@ -82,7 +82,7 @@ bool CSAMP::Init()
 				SAMP_Version = 4;
 
 				// Init functions
-				fAddChatMessage = samp_offset<AddChatMessage_t>(0x680B0);
+				fAddChatMessage = samp_offset<AddChatMessage_t>(0x67BA0);
 
 				fAddClientCommand = samp_offset<AddClientCommand_t>(0x69730);
 				fSendCommand = samp_offset<SendCommand_t>(0x698C0);
